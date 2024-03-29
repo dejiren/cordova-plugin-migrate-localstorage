@@ -33,15 +33,15 @@
     NSString* appLibraryFolder = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     NSString* original;
 
-    if ([[NSFileManager defaultManager] fileExistsAtPath:[appLibraryFolder stringByAppendingPathComponent:@"WebKit/LocalStorage/file__0.localstorage"]]) {
-        original = [appLibraryFolder stringByAppendingPathComponent:@"WebKit/LocalStorage"];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:[appLibraryFolder stringByAppendingPathComponent:@"WebsiteData/LocalStorage/file__0.localstorage"]]) {
+        original = [appLibraryFolder stringByAppendingPathComponent:@"WebsiteData/LocalStorage"];
     } else {
         original = [appLibraryFolder stringByAppendingPathComponent:@"Caches"];
     }
 
     original = [original stringByAppendingPathComponent:@"file__0.localstorage"];
 
-    NSString* target = [[NSString alloc] initWithString: [appLibraryFolder stringByAppendingPathComponent:@"WebKit"]];
+    NSString* target = [[NSString alloc] initWithString: [appLibraryFolder stringByAppendingPathComponent:@"WebsiteData"]];
 
 #if TARGET_IPHONE_SIMULATOR
     // the simulutor squeezes the bundle id into the path
@@ -49,11 +49,11 @@
     target = [target stringByAppendingPathComponent:bundleIdentifier];
 #endif
 
-    target = [target stringByAppendingPathComponent:@"WebsiteData/LocalStorage/file__0.localstorage"];
+    target = [target stringByAppendingPathComponent:@"WebsiteData/LocalStorage/app__0.localstorage"];
 
     // Only copy data if no existing localstorage data exists yet for wkwebview
     if (![[NSFileManager defaultManager] fileExistsAtPath:target]) {
-        NSLog(@"No existing localstorage data found for WKWebView. Migrating data from UIWebView");
+        NSLog(@"No existing localstorage data found for app protocol. Migrating data from file protocol");
         [self copyFrom:original to:target];
         [self copyFrom:[original stringByAppendingString:@"-shm"] to:[target stringByAppendingString:@"-shm"]];
         [self copyFrom:[original stringByAppendingString:@"-wal"] to:[target stringByAppendingString:@"-wal"]];
