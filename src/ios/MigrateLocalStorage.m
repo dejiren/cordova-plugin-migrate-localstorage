@@ -49,11 +49,11 @@
     target = [target stringByAppendingPathComponent:bundleIdentifier];
 #endif
 
-    target = [target stringByAppendingPathComponent:@"WebsiteData/LocalStorage/app_localhost_0.localstorage"];
+    target = [target stringByAppendingPathComponent:@"WebsiteData/LocalStorage/http_localhost_0.localstorage"];
 
     // Only copy data if no existing localstorage data exists yet for wkwebview
     if (![[NSFileManager defaultManager] fileExistsAtPath:target]) {
-        NSLog(@"No existing localstorage data found for app protocol. Migrating data from file protocol");
+        NSLog(@"No existing localstorage data found for http protocol. Migrating data from file protocol");
         [self copyFrom:original to:target];
         [self copyFrom:[original stringByAppendingString:@"-shm"] to:[target stringByAppendingString:@"-shm"]];
         [self copyFrom:[original stringByAppendingString:@"-wal"] to:[target stringByAppendingString:@"-wal"]];
